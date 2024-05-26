@@ -7,20 +7,55 @@
     <style>
         body {
             display: flex;
+            flex-direction: column; /* Aligns children vertically */
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
+            position: relative; /* Needed to position the scroll-to-top button absolutely */
         }
         img {
             max-width: 100%;
             height: auto;
             border: 2px solid #000;
         }
+        .button-container {
+            display: flex;
+            width: 100%;
+            justify-content: space-evenly;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #scrollToTop {
+            position: absolute;
+            bottom: 20px;
+            right: 20px; /* Positions button at bottom right */
+        }
     </style>
 </head>
 <body>
     <img src="frontimage.png" alt="Uploaded Image">
+    <div class="button-container">
+        <button>Button 1</button>
+        <button>Button 2</button>
+        <button>Button 3</button>
+        <button>Button 4</button>
+        <button>Button 5</button>
+    </div>
+    <button id="scrollToTop" onclick="scrollToTop()">Scroll to Top</button>
+
+    <script>
+        function scrollToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'}); // Smoothly scroll to top of the page
+        }
+    </script>
 </body>
 </html>
