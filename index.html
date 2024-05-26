@@ -13,7 +13,6 @@
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
-            position: relative; /* Needed to position the scroll-to-top button absolutely */
         }
         img {
             max-width: 100%;
@@ -35,22 +34,20 @@
             border-radius: 5px;
         }
         #scrollToTop {
-            position: absolute;
-            bottom: 20px;
-            right: 20px; /* Positions button at bottom right */
+            margin-top: 20px; /* Adds space between the row of buttons and the scroll to top button */
         }
     </style>
 </head>
 <body>
     <img src="frontimage.png" alt="Uploaded Image">
     <div class="button-container">
-        <button>Button 1</button>
-        <button>Button 2</button>
-        <button>Button 3</button>
-        <button>Button 4</button>
-        <button>Button 5</button>
+        <button>EX1</button>
+        <button>EX2</button>
+        <button>EX3</button>
+        <button>EX4</button>
+        <button>EX5</button>
     </div>
-    <button id="scrollToTop" onclick="scrollToTop()">Scroll to Top</button>
+    <button id="scrollToTop" onclick="scrollToTop()">^</button>
 
     <script>
         function scrollToTop() {
