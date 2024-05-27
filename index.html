@@ -34,12 +34,7 @@
             border: none;
             border-radius: 5px;
         }
-        #scrollToTop {
-            position: fixed; /* Starts as fixed */
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
+
         #displayArea {
             text-align: center;
             margin-top: 20px;
@@ -55,8 +50,8 @@
         <button onclick="displayContent(3)">EX3</button>
         <button onclick="displayContent(4)">EX4</button>
         <button onclick="displayContent(5)">EX5</button>
+		<button onclick="scrollToTop()">^</button>
     </div>
-    <button id="scrollToTop" onclick="scrollToTop()">^</button>
     <div id="displayArea">
         <!-- Dynamic content will be displayed here -->
     </div>
@@ -65,21 +60,6 @@
         function scrollToTop() {
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
-
-        window.addEventListener('scroll', function() {
-            const frontImage = document.getElementById('frontImage');
-            const scrollToTopButton = document.getElementById('scrollToTop');
-            let imageRect = frontImage.getBoundingClientRect();
-            
-            // Check if the bottom of the image is less than the viewport height
-            if (imageRect.bottom < window.innerHeight) {
-                scrollToTopButton.style.position = 'absolute';
-                scrollToTopButton.style.bottom = window.innerHeight - imageRect.bottom + 20 + 'px'; // Place 20px below the image
-            } else {
-                scrollToTopButton.style.position = 'fixed';
-                scrollToTopButton.style.bottom = '20px';
-            }
-        });
 
         function displayContent(exerciseNumber) {
             var displayArea = document.getElementById('displayArea');
