@@ -6,15 +6,17 @@
     <title>Acasa</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column; /* Aligns children vertically */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             margin: 0;
             background-color: #f0f0f0;
+            position: relative; /* Added for relative positioning of the top button */
         }
         img {
-            max-width: 100%; /* Ensures images do not exceed the width of their container */
+            max-width: 100%;
             height: auto;
             border: 2px solid #000;
         }
@@ -32,6 +34,12 @@
             border: none;
             border-radius: 5px;
         }
+        #scrollToTop {
+            position: fixed; /* Starts as fixed */
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
         #displayArea {
             text-align: center;
             margin-top: 20px;
@@ -40,15 +48,15 @@
     </style>
 </head>
 <body>
-    <img src="frontimage.png" alt="Uploaded Image">
+    <img id="frontImage" src="frontimage.png" alt="Uploaded Image">
     <div class="button-container">
         <button onclick="displayContent(1)">EX1</button>
         <button onclick="displayContent(2)">EX2</button>
         <button onclick="displayContent(3)">EX3</button>
         <button onclick="displayContent(4)">EX4</button>
         <button onclick="displayContent(5)">EX5</button>
-        <button onclick="scrollToTop()">^</button>
     </div>
+    <button id="scrollToTop" onclick="scrollToTop()">^</button>
     <div id="displayArea">
         <!-- Dynamic content will be displayed here -->
     </div>
@@ -57,16 +65,56 @@
         function scrollToTop() {
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
+
+        window.addEventListener('scroll', function() {
+            const frontImage = document.getElementById('frontImage');
+            const scrollToTopButton = document.getElementById('scrollToTop');
+            let imageRect = frontImage.getBoundingClientRect();
+            
+            // Check if the bottom of the image is less than the viewport height
+            if (imageRect.bottom < window.innerHeight) {
+                scrollToTopButton.style.position = 'absolute';
+                scrollToTopButton.style.bottom = window.innerHeight - imageRect.bottom + 20 + 'px'; // Place 20px below the image
+            } else {
+                scrollToTopButton.style.position = 'fixed';
+                scrollToTopButton.style.bottom = '20px';
+            }
+        });
+
         function displayContent(exerciseNumber) {
             var displayArea = document.getElementById('displayArea');
             if (exerciseNumber === 1) {
-                displayArea.innerHTML = '<p>Fi e o multime de forme E = {x1, x2, x3, x4, x5}. Matricea distantelor este urmatoarea:</p>' +
-                                        '<img src="ex1.jpeg" alt="Image for EX1">' +
-                                        '<img src="ex2.jpeg" alt="Image for EX2">' +
+                displayArea.innerHTML = 
+										'<p>Fi e o mulțime de forme E = {x1, x2, x3, x4, x5}. Matricea distanțelor este următoarea:</p>' +
+                                        '<table><tr><td>0.00</td><td>2.00</td><td>4.47</td><td>5.66</td><td>7.81</td></tr>' +
+                                        '<tr><td>2.00</td><td>0.00</td><td>2.83</td><td>4.47</td><td>6.40</td></tr>' +
+                                        '<tr><td>4.47</td><td>2.83</td><td>0.00</td><td>2.00</td><td>3.61</td></tr>' +
+                                        '<tr><td>5.66</td><td>4.47</td><td>2.00</td><td>0.00</td><td>2.24</td></tr>' +
+                                        '<tr><td>7.81</td><td>6.40</td><td>3.61</td><td>2.24</td><td>0.00</td></tr></table>' +
+                                        '<p>Determinați dendrograma formelor și precizați valoarea distanțelor ultrametrice dintre formele (x2, x3) și (x4, x1).</p>' +
+										'<img src="ex1.jpeg" alt="Image for EX1">' +
+										'<img src="ex2.jpeg" alt="Image for EX2">' +
                                         '<p>Answer: 2.28 2.28</p>';
-            } else {
-                var imageName = 'image' + exerciseNumber + '.jpeg'; // Change file extension if necessary
-                var textContent = 'Text for EX' + exerciseNumber; // Customize text content as needed
+            }
+			else if (exerciseNumber === 2) {
+            displayArea.innerHTML = '<p>Fi o mulțime de forme E = {x1, x2, x3, x4, x5, x6} și matricea (triunghiulară) a distanțelor:</p>'+
+                '<table><tr><td>0</td><td>11</td><td>33</td><td>5</td><td>14</td><td>41</td></tr>'+
+                    '<tr><td></td><td>0</td><td>23</td><td>16</td><td>13</td><td>27</td></tr>'++
+                    '<tr><td></td><td></td><td>0</td><td>36</td><td>43</td><td>39</td></tr>'+
+                    '<tr><td></td><td></td><td></td><td>0</td><td>45</td><td>19</td></tr>'+
+                    '<tr><td></td><td></td><td></td><td></td><td>0</td><td>16</td></tr>'+
+                    '<tr><td></td><td></td><td></td><td></td><td></td><td>0</td></tr></table>'+
+                '<p>Se cere:</p>'+
+                '<ul>'+
+                    '<li>determinați arborii sub-intină (parțial) de cost minim al grafului formelor; precizați raportul sub forma S = (N, A).</li>'+
+                    '<li>determinați și de partitii...(P1)...(P6) care poate fi obținut pe baza arborilor sub-intină (parțială) de cost minim al grafului formelor;</li>'+
+                    '<li>ultrametrica ce poate fi obținută.</li>'+
+                '</ul>'+
+				'<img src="ex2.jpeg" alt="Image for EX1">' +
+										'<img src="ex3.jpeg" alt="Image for EX2">' +;
+			else {
+                var imageName = 'image' + exerciseNumber + '.png'; // Assumes image names
+                var textContent = 'Text for EX' + exerciseNumber; // Customize text content
                 displayArea.innerHTML = '<img src="' + imageName + '" alt="Image for EX' + exerciseNumber + '">' +
                                         '<p>' + textContent + '</p>';
             }
