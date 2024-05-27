@@ -10,13 +10,14 @@
             flex-direction: column; /* Aligns children vertically */
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh; /* Ensures the body takes at least the height of the viewport */
             margin: 0;
             background-color: #f0f0f0;
+            overflow: hidden; /* Hides any overflow to prevent horizontal scrolling */
         }
         img {
-            max-width: 100%;
-            height: auto;
+            max-width: 100%; /* Ensures image does not exceed the width of its container */
+            max-height: 60vh; /* Limits the image height to 60% of the viewport height */
             border: 2px solid #000;
         }
         .button-container {
@@ -34,24 +35,30 @@
             border-radius: 5px;
         }
         #scrollToTop {
-            margin-top: 20px; /* Adds space between the row of buttons and the scroll to top button */
+            position: fixed; /* Makes the button fixed at the bottom of the viewport */
+            bottom: 20px; /* 20px from the bottom */
+            right: 20px; /* 20px from the right */
+            z-index: 1000; /* Ensures button is always on top */
         }
     </style>
 </head>
 <body>
     <img src="frontimage.png" alt="Uploaded Image">
     <div class="button-container">
-        <button>EX1</button>
-        <button>EX2</button>
-        <button>EX3</button>
-        <button>EX4</button>
-        <button>EX5</button>
+        <button onclick="displayContent('EX1')">EX1</button>
+        <button onclick="displayContent('EX2')">EX2</button>
+        <button onclick="displayContent('EX3')">EX3</button>
+        <button onclick="displayContent('EX4')">EX4</button>
+        <button onclick="displayContent('EX5')">EX5</button>
     </div>
     <button id="scrollToTop" onclick="scrollToTop()">^</button>
 
     <script>
         function scrollToTop() {
             window.scrollTo({top: 0, behavior: 'smooth'}); // Smoothly scroll to top of the page
+        }
+        function displayContent(exercise) {
+            alert('Display content for ' + exercise); // Placeholder for actual functionality
         }
     </script>
 </body>
