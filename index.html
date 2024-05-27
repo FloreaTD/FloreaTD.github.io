@@ -16,8 +16,8 @@
             overflow: hidden; /* Hides any overflow to prevent horizontal scrolling */
         }
         img {
-            max-width: 100%; /* Ensures image does not exceed the width of its container */
-            max-height: 60vh; /* Limits the image height to 60% of the viewport height */
+            max-width: 50%; /* Adjusts width to fit two images side by side */
+            height: auto;
             border: 2px solid #000;
         }
         .button-container {
@@ -40,25 +40,43 @@
             right: 20px; /* 20px from the right */
             z-index: 1000; /* Ensures button is always on top */
         }
+        #displayArea {
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <img src="frontimage.png" alt="Uploaded Image">
     <div class="button-container">
-        <button onclick="displayContent('EX1')">EX1</button>
-        <button onclick="displayContent('EX2')">EX2</button>
-        <button onclick="displayContent('EX3')">EX3</button>
-        <button onclick="displayContent('EX4')">EX4</button>
-        <button onclick="displayContent('EX5')">EX5</button>
+        <button onclick="displayContent(1)">EX1</button>
+        <button onclick="displayContent(2)">EX2</button>
+        <button onclick="displayContent(3)">EX3</button>
+        <button onclick="displayContent(4)">EX4</button>
+        <button onclick="displayContent(5)">EX5</button>
+        <button id="scrollToTop" onclick="scrollToTop()">^</button>
     </div>
-    <button id="scrollToTop" onclick="scrollToTop()">^</button>
+    <div id="displayArea">
+        <!-- Dynamic content will be displayed here -->
+    </div>
 
     <script>
         function scrollToTop() {
-            window.scrollTo({top: 0, behavior: 'smooth'}); // Smoothly scroll to top of the page
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
-        function displayContent(exercise) {
-            alert('Display content for ' + exercise); // Placeholder for actual functionality
+        function displayContent(exerciseNumber) {
+            var displayArea = document.getElementById('displayArea');
+            if (exerciseNumber === 1) {
+                displayArea.innerHTML = '<p>Fi e o multime de forme E = {x1, x2, x3, x4, x5}. Matricea distantelor este urmatoarea:</p>' +
+                                        '<img src="ex1.jpeg" alt="Image for EX1">' +
+                                        '<img src="ex2.jpeg" alt="Image for EX2">' +
+                                        '<p>Answer: 2.28 2.28</p>';
+            } else {
+                var imageName = 'image' + exerciseNumber + '.png'; // Assumes image names are image1.png, image2.png, etc.
+                var textContent = 'Text for EX' + exerciseNumber; // Customize text content as needed
+                displayArea.innerHTML = '<img src="' + imageName + '" alt="Image for EX' + exerciseNumber + '">' +
+                                        '<p>' + textContent + '</p>';
+            }
         }
     </script>
 </body>
